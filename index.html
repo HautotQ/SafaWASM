@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Wasm Minimal UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>WebAssembly + C Minimal</h1>
+    <canvas id="myCanvas" width="400" height="200" style="border:1px solid black;"></canvas>
+    <br>
+    <button id="incrementBtn">Incrémenter</button>
+
+    <script src="main.js"></script>
+    <script>
+        // Quand le bouton est cliqué, appelle la fonction C
+        document.getElementById('incrementBtn').addEventListener('click', () => {
+            Module.ccall('increment_counter', null, [], []);
+        });
+    </script>
+</body>
+</html>
