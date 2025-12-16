@@ -29,7 +29,7 @@ jobs:
 
       - name: Compile C to WebAssembly
         run: |
-          source emsdk/emsdk_env.sh
+          source emsdk/emsdk_env.sh && \
           emcc main.c -o main.js -s WASM=1 \
           -s EXPORTED_FUNCTIONS="['_increment_counter']" \
           -s EXPORTED_RUNTIME_METHODS="['ccall']"
