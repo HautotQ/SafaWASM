@@ -1,0 +1,33 @@
+name: Build C → Wasm
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Récupérer le dépôt
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Installer Emscripten
+      - name: Setup Emscripten
+        uses: amio/setup-emscripten@v1
+        with:
+          emsdk-version: latest
+
+      # Compiler main.c en wasm
+      - name: Compile C to WebAssembly
+        run: |
+          emcc main.c -o main.js -s WASM=1 \
+          -s EXPORTED_FUNCTIONS="['_increment_counter']" \
+          -s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall']"
+
+      # Lister les fichiers générés pour vérifier
+      - name: List output
+        run: ls -l
